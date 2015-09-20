@@ -97,7 +97,16 @@ ylabel('Error')
 
 The catastrophic effects of cancellation are visible in the plot of the error in ``f1``. When $h$ gets too small, the cancellation error dominates the approximation error. In ``f2``, no cancellation error is present, and the approximation error decreases with $h$. 
 
-## Suitability for Numerical Computitation
+## Suitability for Numerical Computation
+~ Equation
+\ln{x-\sqrt{x^2 - 1} = \ln{x-\sqrt{x^2 - 1} * \frac{x+\sqrt{x^2 - 1}{x+\sqrt{x^2 - 1}}
+~
+~ Equation
+\ln{x-\sqrt{x^2 - 1} * \frac{x+\sqrt{x^2 - 1}}{x+\sqrt{x^2 - 1}}} = \ln{\frac{1}{x+\sqrt{x^2 - 1}}} = \ln{x + \sqrt{x^2 - 1}}
+~
+
+
+The second formula is much more suitable for numerical computation, since the first one will suffer from cancellation, as the term $x - \sqrt{x^2-1}$ matches the criteria of a cancellation-error prone calculation.
 
 # Kronecker Product
 ## Matrix M {@h1-h2="b"}
@@ -131,7 +140,7 @@ The above plot was generated using the following code:
 
 ## Discussion of Reshape Implementation
 
-
+The outer call to `reshape` simply reformats the $n$ by $n$ matrix as an $n^2$ by $1$ column vector, and the inner call to `reshape` creates a square matrix of size $n$ from the contents of the vector $x$. The interesting part is the multiplication, 
 
 ![nme1p3e_plot]
 
@@ -142,3 +151,11 @@ The above plot was generated using the following code:
 ```
 
 [nme1p3e_plot]: images/nme1p3e_plot.png "nme1p3e_plot" { width=auto max-width=90% }
+
+## [Eigen]{font-variant=small-caps} Implementation of `kron`
+
+## [Eigen]{font-variant=small-caps} Implementation of $(2)$
+
+## [Eigen]{font-variant=small-caps} Implementation of $(3)$
+
+## Runtime comparisons of [Eigen]{font-variant=small-caps} implementations
