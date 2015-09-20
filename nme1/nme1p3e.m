@@ -8,12 +8,12 @@ for i = 1:5
     x = rand(n^2,1);
     for t = 1:3
         tic
-        y = kron(A,B) * x;
+        y = reshape( B * reshape(x,n,n) * A', n*n, 1 );
         tt(t, i) = toc;
     end
     res(i) = min(tt(:,i)); 
 end
 
-semilogy(scale, res);
+plot(scale, res);
 xlabel('n');
 ylabel('time');
