@@ -48,7 +48,9 @@
 }
 
 .madoko blockquote {
-  font-style: italic;
+  border-left: 5px Gainsboro solid;
+  padding-left: 1ex;
+  margin-left: 1em;
 }
 
 /* Local page links do not get an underline unless hovering */
@@ -211,7 +213,6 @@
 
 
 /* Title, authors */
-/*
 .madoko .title {
   font-size: xx-large;
   font-weight: bold;
@@ -242,7 +243,6 @@
   margin-top: -0.5ex;
   margin-bottom: 1.5ex;
 }
-*/
 
 /* Lists */
 
@@ -387,18 +387,18 @@
 /* ---------------------------------------------------
    Styling for full documents
 ----------------------------------------------------*/
-body.madoko {
+body.madoko, .madoko-body {
   font-family: Cambria,"Times New Roman","Liberation Serif","Times",serif;
   -webkit-text-size-adjust: 100%; /* so math displays well on mobile devices */
 }
 
-body.madoko {
+body.madoko, .madoko-body {
+  padding: 0em 2em;
   max-width: 88ex; /* about 88 characters */
   margin: 1em auto;
-  padding: 0em 2em;  
 }
 
-body.preview.madoko {
+body.madoko.preview {
   padding: 0em 1em;
 }
 
@@ -465,7 +465,7 @@ body.preview.madoko {
 ----------------------------------------------------*/
 
 @media print {
-  body.madoko {
+  body.madoko, .madoko-body {
     font-size: 10pt;
   }
   @page {
@@ -478,7 +478,7 @@ body.preview.madoko {
 ----------------------------------------------------*/
 
 @media only screen and (max-device-width:1024px) {
-  body.madoko {
+  body.madoko, .madoko-body {
     padding: 0em 1em;
   }
 }
