@@ -4,16 +4,6 @@
 using Eigen::MatrixXd;
 using Eigen::VectorXd;
 
-template <class Vector> Vector arrowmatvec(const Vector & d, const Vector & a, const Vector & x);
-
-int main() {
-    Eigen::Vector4d d(5,6,7,8), a(1,2,3,4), x(1,1,1,1);
-    Eigen::Vector4d r = arrowmatvec(d,a,x);
-    std::cout << r;
-    return 0;
-}
-
-
 template <class Vector>
 Vector arrowmatvec(const Vector & d, const Vector & a, const Vector & x) {
     int d_s = d.size();
@@ -28,3 +18,9 @@ Vector arrowmatvec(const Vector & d, const Vector & a, const Vector & x) {
     return A*A*x;
 }
 
+int main() {
+    Eigen::Vector4d d(5,6,7,8), a(1,2,3,4), x(1,1,1,1);
+    Eigen::Vector4d r = arrowmatvec(d,a,x);
+    std::cout << r;
+    return 0;
+}
