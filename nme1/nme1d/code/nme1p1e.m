@@ -1,6 +1,6 @@
 scale = 2 .^ (5:12);
 c = length(scale);
-tries = 1;
+tries = 3;
 res = zeros(c, 2);
 tt = zeros(2,tries);
 for i = 1:c
