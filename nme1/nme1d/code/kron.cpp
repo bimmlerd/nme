@@ -11,7 +11,17 @@
 template <class Matrix>
 void kron(const Matrix & A, const Matrix & B, Matrix & C)
 {
-    // TODO
+    size_t n = A.size();
+    if (n != B.size()) {
+        std::cerr << "size mismatch";
+        throw 1;
+    }
+
+    for (size_t i = 0, size = A.size(); i < size; i++)
+    {
+        double a = (*(A.data() + i));
+
+    }
 }
 
 //! \brief Compute the Kronecker product C = $A \otimes B$. Exploit matrix-vector product.

@@ -6,16 +6,18 @@ using Eigen::VectorXd;
 
 template <class Vector>
 Vector arrowmatvec2(const Vector & d, const Vector & a, const Vector & x) {
-    size_t n = d.size();
+    long n = d.size();
     if (n != a.size()) {
         std::cerr << "size mismatch";
         throw 1;
     }
-    a.tail(1) = 0;
-    Vector yy = d.array() * x.array() + x.tail(1) * a;
-    yy.tail(1) += a.rows(n-1).dot(x.rows(n-1));
-    Vector y = d.array() * yy.array() + yy.tail(1) * a;
-    y.tail(1) += a.rows(n-1).dot(yy.rows(n-1));
+    Vector a_ = a;
+    a_(n-1) = 0;
+    Vector yy = (d.array() * x.array()).matrix() + x(n-1) * a_;
+    yy(n-1) += a_.topRows(n).dot(x.topRows(n));
+    Vector y = (d.array() * yy.array()).matrix() + yy(n-1) * a_;
+    y(n-1) += a_.topRows(n).dot(yy.topRows(n));
+    return y;
 }
 
 int main() {
