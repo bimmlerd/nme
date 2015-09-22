@@ -29,9 +29,25 @@ From the code we can see why $O(n^3)$ is the expected asymptotic complexity: the
 
 ## Efficient Reimplementation
 
+We can avoid creating the matrix A entirely. Furthermore, we first simulate the multiplication of A with x and then simulate the second multiplication of A with the result. The multiplication with A is simulated by exploiting the arrow structure.
+```
+[INCLUDE=code/arrowmatvec2.m]
+```
 ## Complexity of Reimplementation
 
+The more efficient version runs in $O(n)$.
+
 ## Runtime Comparison
+
+![nme1p1e_plot]
+
+The above plot was generated using the following code:
+
+```
+[INCLUDE=code/nme1p1e.m]
+```
+
+[nme1p1e_plot]: images/nme1p1e_plot.png "nme1p1e_plot" { width=auto max-width=90% }
 
 ## [Eigen]{font-variant=small-caps} implementations
 
@@ -42,6 +58,10 @@ From the code we can see why $O(n^3)$ is the expected asymptotic complexity: the
 ```
 
 ### ``arrowmatvec2``
+
+``` cpp
+[INCLUDE=code/arrowmatvec2.cpp:1-20]
+```
 
 # Avoiding Cancellation
 
