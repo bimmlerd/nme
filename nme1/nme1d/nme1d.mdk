@@ -35,6 +35,14 @@ From the code we can see why $O(n^3)$ is the expected asymptotic complexity: the
 
 ## [Eigen]{font-variant=small-caps} implementations
 
+### ``arrowmatvec``
+
+``` cpp
+[INCLUDE=code/arrowmatvec.cpp:1-20]
+```
+
+### ``arrowmatvec2``
+
 # Avoiding Cancellation
 
 ## Behaviour of the Error
@@ -99,14 +107,18 @@ The catastrophic effects of cancellation are visible in the plot of the error in
 
 ## Suitability for Numerical Computation
 ~ Equation
-\ln{x-\sqrt{x^2 - 1} = \ln{x-\sqrt{x^2 - 1} * \frac{x+\sqrt{x^2 - 1}{x+\sqrt{x^2 - 1}}
+\ln{\left(x-\sqrt{x^2 - 1}\right)} = \ln{\left(x-\sqrt{x^2 - 1} * \frac{x+\sqrt{x^2 - 1}}{x+\sqrt{x^2 - 1}}\right)}
 ~
 ~ Equation
-\ln{x-\sqrt{x^2 - 1} * \frac{x+\sqrt{x^2 - 1}}{x+\sqrt{x^2 - 1}}} = \ln{\frac{1}{x+\sqrt{x^2 - 1}}} = \ln{x + \sqrt{x^2 - 1}}
+\ln{\left(x-\sqrt{x^2 - 1} * \frac{x+\sqrt{x^2 - 1}}{x+\sqrt{x^2 - 1}}\right)} = \ln{\left(\frac{1}{x+\sqrt{x^2 - 1}}\right)} = - \ln{\left(x + \sqrt{x^2 - 1}\right)}
 ~
 
-
 The second formula is much more suitable for numerical computation, since the first one will suffer from cancellation, as the term $x - \sqrt{x^2-1}$ matches the criteria of a cancellation-error prone calculation.
+
+## Numerical Difficulties
+
+1. $\sqrt{x + \frac{1}{x}} - \sqrt{x - \frac{1}{x}}$
+2. $\sqrt{\frac{1}{a^2} + \frac{1}{b^2}}$
 
 # Kronecker Product
 ## Matrix M {@h1-h2="b"}
