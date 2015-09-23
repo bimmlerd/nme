@@ -60,7 +60,7 @@ The above plot was generated using the following code:
 ### ``arrowmatvec2``
 
 ``` cpp
-[INCLUDE=code/arrowmatvec2.cpp:1-20]
+[INCLUDE=code/arrowmatvec2.cpp:1-21]
 ```
 
 # Avoiding Cancellation
@@ -133,12 +133,25 @@ The catastrophic effects of cancellation are visible in the plot of the error in
 \ln{\left(x-\sqrt{x^2 - 1} * \frac{x+\sqrt{x^2 - 1}}{x+\sqrt{x^2 - 1}}\right)} = \ln{\left(\frac{1}{x+\sqrt{x^2 - 1}}\right)} = - \ln{\left(x + \sqrt{x^2 - 1}\right)}
 ~
 
-The second formula is much more suitable for numerical computation, since the first one will suffer from cancellation, as the term $x - \sqrt{x^2-1}$ matches the criteria of a cancellation-error prone calculation.
+The second formula is much more suitable for numerical computation, since the first one will suffer from cancellation, as the term $x - \sqrt{x^2-1}$ matches the criteria of a cancellation-error prone calculation. For $x = 60000000$ we already observe an error of $0.112$, which is significant.
 
 ## Numerical Difficulties
 
-1. $\sqrt{x + \frac{1}{x}} - \sqrt{x - \frac{1}{x}}$
-2. $\sqrt{\frac{1}{a^2} + \frac{1}{b^2}}$
+### $\sqrt{x + \frac{1}{x}} - \sqrt{x - \frac{1}{x}}$ with $x\gg1$
+
+In this expression cancellation will occur, since the two terms that get subtracted are very close to the same size. We can apply the same trick as before:
+~ Equation
+\sqrt{x + \frac{1}{x}} - \sqrt{x - \frac{1}{x}} = \frac{2}{x * \left(\sqrt{x + \frac{1}{x}} + \sqrt{x - \frac{1}{x}}\right)}
+~
+This expression does not suffer from cancellation.
+
+### $\sqrt{\frac{1}{a^2} + \frac{1}{b^2}}$ with $a \approx 0, b \approx 1$
+
+The problem in this expression is that $\frac{1}{a^2}$ blows up the error in $a$. Furthermore since $\frac{1}{a^2}$ becomes much bigger than $\frac{1}{b^2}$, truncation occurs. The following rewrite offers an improvement:
+~ Equation
+\sqrt{\frac{1}{a^2} + \frac{1}{b^2}} = \sqrt{\frac{a^2 + b^2}{a^2b^2}} = \frac{\sqrt{a^2 + b^2}}{ab}
+~
+
 
 # Kronecker Product
 ## Matrix M {@h1-h2="b"}
@@ -172,7 +185,7 @@ The above plot was generated using the following code:
 
 ## Discussion of Reshape Implementation
 
-The outer call to `reshape` simply reformats the $n$ by $n$ matrix as an $n^2$ by $1$ column vector, and the inner call to `reshape` creates a square matrix of size $n$ from the contents of the vector $x$. The interesting part is the multiplication, 
+The outer call to `reshape` simply reformats the $n$ by $n$ matrix as an $n^2$ by $1$ column vector, and the inner call to `reshape` creates a square matrix of size $n$ from the contents of the vector $x$. The interesting part is the multiplication $B \times x' \times A^T$ where $x'$ is a $n$ by $n$ matrix formed from the elements of $x$, but I am unable to explain the equivalence properly.  
 
 ![nme1p3e_plot]
 
@@ -185,6 +198,10 @@ The above plot was generated using the following code:
 [nme1p3e_plot]: images/nme1p3e_plot.png "nme1p3e_plot" { width=auto max-width=90% }
 
 ## [Eigen]{font-variant=small-caps} Implementation of `kron`
+
+``` cpp
+[INCLUDE=code/kron.cpp]
+``` 
 
 ## [Eigen]{font-variant=small-caps} Implementation of $(2)$
 
