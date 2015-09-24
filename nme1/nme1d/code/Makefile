@@ -137,6 +137,19 @@ arrowmatvec2/fast:
 .PHONY : arrowmatvec2/fast
 
 #=============================================================================
+# Target rules for targets named blah
+
+# Build rule for target.
+blah: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 blah
+.PHONY : blah
+
+# fast build rule for target.
+blah/fast:
+	$(MAKE) -f CMakeFiles/blah.dir/build.make CMakeFiles/blah.dir/build
+.PHONY : blah/fast
+
+#=============================================================================
 # Target rules for targets named houserefl
 
 # Build rule for target.
@@ -241,6 +254,33 @@ arrowmatvec2.s: arrowmatvec2.cpp.s
 arrowmatvec2.cpp.s:
 	$(MAKE) -f CMakeFiles/arrowmatvec2.dir/build.make CMakeFiles/arrowmatvec2.dir/arrowmatvec2.cpp.s
 .PHONY : arrowmatvec2.cpp.s
+
+blah.o: blah.cpp.o
+
+.PHONY : blah.o
+
+# target to build an object file
+blah.cpp.o:
+	$(MAKE) -f CMakeFiles/blah.dir/build.make CMakeFiles/blah.dir/blah.cpp.o
+.PHONY : blah.cpp.o
+
+blah.i: blah.cpp.i
+
+.PHONY : blah.i
+
+# target to preprocess a source file
+blah.cpp.i:
+	$(MAKE) -f CMakeFiles/blah.dir/build.make CMakeFiles/blah.dir/blah.cpp.i
+.PHONY : blah.cpp.i
+
+blah.s: blah.cpp.s
+
+.PHONY : blah.s
+
+# target to generate assembly for a file
+blah.cpp.s:
+	$(MAKE) -f CMakeFiles/blah.dir/build.make CMakeFiles/blah.dir/blah.cpp.s
+.PHONY : blah.cpp.s
 
 houserefl.o: houserefl.cpp.o
 
@@ -358,6 +398,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... blah"
 	@echo "... arrowmatvec2"
 	@echo "... matPow"
 	@echo "... kron"
@@ -370,6 +411,9 @@ help:
 	@echo "... arrowmatvec2.o"
 	@echo "... arrowmatvec2.i"
 	@echo "... arrowmatvec2.s"
+	@echo "... blah.o"
+	@echo "... blah.i"
+	@echo "... blah.s"
 	@echo "... houserefl.o"
 	@echo "... houserefl.i"
 	@echo "... houserefl.s"

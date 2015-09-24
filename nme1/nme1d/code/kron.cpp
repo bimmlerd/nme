@@ -11,17 +11,23 @@
 template <class Matrix>
 void kron(const Matrix & A, const Matrix & B, Matrix & C)
 {
-    size_t n = A.size();
-    if (n != B.size()) {
+    if (A.rows() != B.rows()) {
         std::cerr << "size mismatch";
         throw 1;
     }
+    long n = A.rows();
+    Matrix res(n * n, n * n);
 
+    int col = 0;
     for (size_t i = 0, size = A.size(); i < size; i++)
     {
+        if (i > 0 && i % n == 0) {
+            col++;
+        }
         double a = (*(A.data() + i));
-
+        res.block((i%n)*n,col*n,n,n) = a * B;
     }
+    C = res;
 }
 
 //! \brief Compute the Kronecker product C = $A \otimes B$. Exploit matrix-vector product.
@@ -45,7 +51,20 @@ void kron_fast(const Matrix & A, const Matrix & B, const Vector & x, Vector & y)
 template <class Matrix, class Vector>
 void kron_super_fast(const Matrix & A, const Matrix & B, const Vector & x, Vector & y)
 {
-    // TODO
+    long n = A.rows();
+    if (n != B.rows()) {
+        std::cerr << "size mismatch";
+        throw 1;
+    }
+
+    Matrix X(n,n);
+    for (int i = 0; i < n; i++) {
+        X.block(0,i,n,1) = x.segment(i*n,n);
+    }
+    Matrix Y = (B * X * A.adjoint());
+    for (int i = 0; i < n; i++) {
+        y.segment(i*n,n) = Y.block(0,i,n,1);
+    }
 }
 
 
@@ -65,8 +84,8 @@ int main(void) {
     std::cout << "kron(A,B)=" << std::endl << C << std::endl;
     std::cout << "Using kron: y=       " << std::endl << y << std::endl;
     
-    kron_fast(A,B,x,y);
-    std::cout << "Using kron_fast: y=  " << std::endl << y << std::endl;
+/*    kron_fast(A,B,x,y);
+    std::cout << "Using kron_fast: y=  " << std::endl << y << std::endl;*/
     kron_super_fast(A,B,x,y);
     std::cout << "Using kron_super_fast: y=  " << std::endl << y << std::endl;
     
@@ -84,13 +103,14 @@ int main(void) {
             
             // May be too slow for large p, comment if so
             tm_kron.start();
-//             kron(A,B,C);
-//             y = C*x;
+            //kron(A,B,C);
+            //y = C*x;
+            y.resize(pow(A.rows(),2)); // make sure we pass a large enough y!
             tm_kron.stop();
             
-            tm_kron_fast.start();
+/*            tm_kron_fast.start();
             kron_fast(A,B,x,y);
-            tm_kron_fast.stop();
+            tm_kron_fast.stop();*/
             
             tm_kron_super_fast.start();
             kron_super_fast(A,B,x,y);

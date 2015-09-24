@@ -34,3 +34,4 @@ add_executable(arrowmatvec ${SRCS})
 # make arrowmatvec2: for problem 1
 set(SRCS arrowmatvec2.cpp)
 add_executable(arrowmatvec2 ${SRCS}) 
+

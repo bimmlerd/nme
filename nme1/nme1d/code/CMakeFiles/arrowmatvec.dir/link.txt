@@ -1,1 +1,0 @@
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++    -std=c++11 -g -Wall -O3 -Wextra -Wno-deprecated-declarations -pedantic -Wl,-search_paths_first -Wl,-headerpad_max_install_names  CMakeFiles/arrowmatvec.dir/arrowmatvec.cpp.o  -o arrowmatvec  

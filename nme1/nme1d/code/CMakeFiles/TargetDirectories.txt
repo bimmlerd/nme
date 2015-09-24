@@ -1,6 +1,0 @@
-/Users/david/Documents/ETH/3/nm/e/nme1/nme1d/code/CMakeFiles/arrowmatvec2.dir
-/Users/david/Documents/ETH/3/nm/e/nme1/nme1d/code/CMakeFiles/matPow.dir
-/Users/david/Documents/ETH/3/nm/e/nme1/nme1d/code/CMakeFiles/kron.dir
-/Users/david/Documents/ETH/3/nm/e/nme1/nme1d/code/CMakeFiles/arrowmatvec.dir
-/Users/david/Documents/ETH/3/nm/e/nme1/nme1d/code/CMakeFiles/multAmin.dir
-/Users/david/Documents/ETH/3/nm/e/nme1/nme1d/code/CMakeFiles/houserefl.dir
