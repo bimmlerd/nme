@@ -62,9 +62,7 @@ void kron_super_fast(const Matrix & A, const Matrix & B, const Vector & x, Vecto
         X.block(0,i,n,1) = x.segment(i*n,n);
     }
     Matrix Y = (B * X * A.adjoint());
-    for (int i = 0; i < n; i++) {
-        y.segment(i*n,n) = Y.block(0,i,n,1);
-    }
+    y = Eigen::Map<Vector>(Y.data(), n*n);
 }
 
 
