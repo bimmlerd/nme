@@ -197,14 +197,18 @@ The above plot was generated using the following code:
 
 [nme1p3e_plot]: images/nme1p3e_plot.png "nme1p3e_plot" { width=auto max-width=90% }
 
-## [Eigen]{font-variant=small-caps} Implementation of `kron`
+## [Eigen]{font-variant=small-caps} Implementation of `kron`, `kron_fast` and `kron_super_fast` 
 
 ``` cpp
-[INCLUDE=code/kron.cpp]
+[INCLUDE=code/kron.cpp:1-84]
 ``` 
 
-## [Eigen]{font-variant=small-caps} Implementation of $(2)$
+## Runtime comparisons of [Eigen]{font-variant=small-caps} implementations { @h1-h2="i" }
 
-## [Eigen]{font-variant=small-caps} Implementation of $(3)$
+![nme1p3g_plot]
 
-## Runtime comparisons of [Eigen]{font-variant=small-caps} implementations
+```
+[INCLUDE=code/nme1p3g.m]
+```
+
+[nme1p3g_plot]: images/nme1p3g_plot.png "nme1p3g_plot" { width=auto max-width=90% }
