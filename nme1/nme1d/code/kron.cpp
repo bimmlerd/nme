@@ -105,11 +105,11 @@ int main(void) {
     std::cout << "Using kron_super_fast: y=  " << std::endl << y << std::endl;
     
     // Compute runtime of different implementations of kron
-    unsigned int repeats = 10;
+    unsigned int repeats = 2;
     timer<> tm_kron, tm_kron_fast, tm_kron_super_fast;
     std::vector<int> times_kron, times_kron_fast, times_kron_super_fast;
     
-    for(unsigned int p = 2; p <= 10; p++) {
+    for(unsigned int p = 2; p <= 7; p++) {
         for(unsigned int r = 0; r < repeats; ++r) {
             unsigned int M = pow(2,p);
             A = Eigen::MatrixXd::Random(M,M);
