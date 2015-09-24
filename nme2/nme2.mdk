@@ -1,0 +1,36 @@
+Title         : Problem Sheet 2
+Subtitle      : Numerical Methods for CSE
+Heading Base  : 2
+Author        : David Bimmler
+Package       : mathtools
+Logo          : false
+
+[TITLE]
+
+# Lyapunov Equation
+## Linear Mapping { @h1-h2="a" } 
+
+To prove (for $\mathbf{U}, \mathbf{V} \in \mathbb{R}^{n,n}, \alpha \in \mathbb{R}$ and a fixed $\mathbf{A}$):
+
+- $L(\mathbf{U + V}) = L(\mathbf{U}) + L(\mathbf{V})$
+- $L(\alpha \cdot \mathbf{U}) = \alpha \cdot L(\mathbf{U})$
+
+The first property:
+~ Math
+\begin{aligned}
+L(\mathbf{U}+\mathbf{V})&=\mathbf{A}(\mathbf{U}+\mathbf{V})+(\mathbf{U}+\mathbf{V})\mathbf{A}^{T} \\
+&=\mathbf{AU}+\mathbf{AV}+\mathbf{UA}^{T}+\mathbf{VA}^{T} \\
+&=\mathbf{AU}+\mathbf{UA}^{T}+\mathbf{AV}+\mathbf{VA}^{T} \\
+&=L(\mathbf{U})+L(\mathbf{V})
+\end{aligned}
+~
+
+And the second property:
+~ Math
+\begin{aligned}
+ L(\alpha\cdot\mathbf{U}) &= \mathbf{A}(\alpha\cdot\mathbf{U}) + (\alpha\cdot\mathbf{U})\mathbf{A}^T \\
+ &= \alpha \cdot (\mathbf{AU}) + \alpha\cdot(\mathbf{UA}^{T})\\
+ &= \alpha \cdot (L(\mathbf{U}))
+ \end{aligned}
+~
+
