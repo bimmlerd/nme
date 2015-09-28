@@ -9,3 +9,81 @@ Logo          : false
 
 # Lyapunov Equation
 ## Linear Mapping { @h1-h2="a" } 
+
+To prove (for $\mathbf{U}, \mathbf{V} \in \mathbb{R}^{n,n}, \alpha \in \mathbb{R}$ and a fixed $\mathbf{A}$):
+
+- $L(\mathbf{U + V}) = L(\mathbf{U}) + L(\mathbf{V})$
+- $L(\alpha \cdot \mathbf{U}) = \alpha \cdot L(\mathbf{U})$
+
+The first property:
+~ Math
+\begin{aligned}
+L(\mathbf{U}+\mathbf{V})&=\mathbf{A}(\mathbf{U}+\mathbf{V})+(\mathbf{U}+\mathbf{V})\mathbf{A}^{T} \\
+&=\mathbf{AU}+\mathbf{AV}+\mathbf{UA}^{T}+\mathbf{VA}^{T} \\
+&=\mathbf{AU}+\mathbf{UA}^{T}+\mathbf{AV}+\mathbf{VA}^{T} \\
+&=L(\mathbf{U})+L(\mathbf{V})
+\end{aligned}
+~
+
+And the second property:
+~ Math
+\begin{aligned}
+ L(\alpha\cdot\mathbf{U}) &= \mathbf{A}(\alpha\cdot\mathbf{U}) + (\alpha\cdot\mathbf{U})\mathbf{A}^T \\
+ &= \alpha \cdot (\mathbf{AU}) + \alpha\cdot(\mathbf{UA}^{T})\\
+ &= \alpha \cdot (L(\mathbf{U}))
+ \end{aligned}
+~
+
+## Linear Equations { @h1-h2="c" }
+
+We have
+~ Math
+\begin{bmatrix}2 & 1 \\ -1 & 3 \end{bmatrix} \mathbf{X} + \mathbf{X} \begin{bmatrix} 2 & 1 \\ -1 & 3 \end{bmatrix} = \mathbf{I}
+~
+
+This gives us the following equations:
+~ Math
+\begin{aligned}
+1 &= 2 \mathbf{X}_{11} + \mathbf{X}_{21} + 2 \mathbf{X}_{11} + \mathbf{X}_{11} = 4 \mathbf{X}_{11} + \mathbf{X}_{21} + \mathbf{X}_{12} \\
+0 &= - \mathbf{X}_{11} + 5 \mathbf{X}_{21} + \mathbf{X}_{22} \\
+0 &= - \mathbf{X}_{11} + 5 \mathbf{X}_{12} + \mathbf{X}_{22} \\
+1 &= - \mathbf{X}_{21} - \mathbf{X}_{12} + 6 \mathbf{X}_{21}
+\end{aligned}
+~
+
+For this $\mathbf{A}$ $(6)$ is thus
+
+~ Math
+\begin{bmatrix}
+4  & 1 & 1 & 0 \\
+-1 & 5 & 0 & 1 \\
+-1 & 0 & 5 & 1 \\
+0 & -1 & -1 & 6
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+\mathbf{X}_{11} \\ \mathbf{X}_{21} \\ \mathbf{X}_{12} \\ \mathbf{X}_{22}
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 \\ 0 \\ 0 \\ 1
+\end{bmatrix}
+~
+
+## General $\mathbf{C}$
+
+~ Equation
+
+C = kron(A, I) + kron(I, A)
+
+~
+
+## Matlab `buildC`
+
+```
+[INCLUDE=code/buildC.m]
+```
+
+## Upper bound for `nnz(C)`
+
+## [Eigen]{font-variant=small-caps} implementation of `buildC`
