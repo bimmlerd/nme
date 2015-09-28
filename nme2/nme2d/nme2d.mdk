@@ -87,3 +87,4 @@ C = kron(A, I) + kron(I, A)
 ## Upper bound for `nnz(C)`
 
 ## [Eigen]{font-variant=small-caps} implementation of `buildC`
+
