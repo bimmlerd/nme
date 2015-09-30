@@ -7,30 +7,36 @@ Logo          : false
 
 [TITLE]
 
+~ MathDefs 
+\newcommand{\M}[1]{\mathbf{#1}}
+\newcommand{\A}{\M{A}}
+\newcommand{\I}{\M{I}}
+~
+
 # Lyapunov Equation
 ## Linear Mapping { @h1-h2="a" } 
 
-To prove (for $\mathbf{U}, \mathbf{V} \in \mathbb{R}^{n,n}, \alpha \in \mathbb{R}$ and a fixed $\mathbf{A}$):
+To prove (for $\M{U}, \M{V} \in \mathbb{R}^{n,n}, \alpha \in \mathbb{R}$ and a fixed $\M{A}$):
 
-- $L(\mathbf{U + V}) = L(\mathbf{U}) + L(\mathbf{V})$
-- $L(\alpha \cdot \mathbf{U}) = \alpha \cdot L(\mathbf{U})$
+- $L(\M{U} + \M{V}) = L(\M{U}) + L(\M{V})$
+- $L(\alpha \cdot \M{U}) = \alpha \cdot L(\M{U})$
 
 The first property:
 ~ Math
 \begin{aligned}
-L(\mathbf{U}+\mathbf{V})&=\mathbf{A}(\mathbf{U}+\mathbf{V})+(\mathbf{U}+\mathbf{V})\mathbf{A}^{T} \\
-&=\mathbf{AU}+\mathbf{AV}+\mathbf{UA}^{T}+\mathbf{VA}^{T} \\
-&=\mathbf{AU}+\mathbf{UA}^{T}+\mathbf{AV}+\mathbf{VA}^{T} \\
-&=L(\mathbf{U})+L(\mathbf{V})
+L(\M{U}+\M{V})&=\M{A}(\M{U}+\M{V})+(\M{U}+\M{V})\M{A}^{T} \\
+&=\M{AU}+\M{AV}+\M{UA}^{T}+\M{VA}^{T} \\
+&=\M{AU}+\M{UA}^{T}+\M{AV}+\M{VA}^{T} \\
+&=L(\M{U})+L(\M{V})
 \end{aligned}
 ~
 
 And the second property:
 ~ Math
 \begin{aligned}
- L(\alpha\cdot\mathbf{U}) &= \mathbf{A}(\alpha\cdot\mathbf{U}) + (\alpha\cdot\mathbf{U})\mathbf{A}^T \\
- &= \alpha \cdot (\mathbf{AU}) + \alpha\cdot(\mathbf{UA}^{T})\\
- &= \alpha \cdot (L(\mathbf{U}))
+ L(\alpha\cdot\M{U}) &= \M{A}(\alpha\cdot\M{U}) + (\alpha\cdot\M{U})\M{A}^T \\
+ &= \alpha \cdot (\M{AU}) + \alpha\cdot(\M{UA}^{T})\\
+ &= \alpha \cdot (L(\M{U}))
  \end{aligned}
 ~
 
@@ -38,20 +44,20 @@ And the second property:
 
 We have
 ~ Math
-\begin{bmatrix}2 & 1 \\ -1 & 3 \end{bmatrix} \mathbf{X} + \mathbf{X} \begin{bmatrix} 2 & -1 \\ 1 & 3 \end{bmatrix} = \mathbf{I}
+\begin{bmatrix}2 & 1 \\ -1 & 3 \end{bmatrix} \M{X} + \M{X} \begin{bmatrix} 2 & -1 \\ 1 & 3 \end{bmatrix} = \M{I}
 ~
 
 This gives us the following equations:
 ~ Math
 \begin{aligned}
-1 &= 2 \mathbf{X}_{11} + \mathbf{X}_{21} + 2 \mathbf{X}_{11} + \mathbf{X}_{11} = 4 \mathbf{X}_{11} + \mathbf{X}_{21} + \mathbf{X}_{12} \\
-0 &= - \mathbf{X}_{11} + 5 \mathbf{X}_{21} + \mathbf{X}_{22} \\
-0 &= - \mathbf{X}_{11} + 5 \mathbf{X}_{12} + \mathbf{X}_{22} \\
-1 &= - \mathbf{X}_{12} - \mathbf{X}_{21} + 6 \mathbf{X}_{22}
+1 &= 2 \M{X}_{11} + \M{X}_{21} + 2 \M{X}_{11} + \M{X}_{11} = 4 \M{X}_{11} + \M{X}_{21} + \M{X}_{12} \\
+0 &= - \M{X}_{11} + 5 \M{X}_{21} + \M{X}_{22} \\
+0 &= - \M{X}_{11} + 5 \M{X}_{12} + \M{X}_{22} \\
+1 &= - \M{X}_{12} - \M{X}_{21} + 6 \M{X}_{22}
 \end{aligned}
 ~
 
-For this $\mathbf{A}$ $(6)$ is thus
+For this $\M{A}$ $(6)$ is thus
 
 ~ Math
 \begin{bmatrix}
@@ -62,7 +68,7 @@ For this $\mathbf{A}$ $(6)$ is thus
 \end{bmatrix}
 \cdot
 \begin{bmatrix}
-\mathbf{X}_{11} \\ \mathbf{X}_{21} \\ \mathbf{X}_{12} \\ \mathbf{X}_{22}
+\M{X}_{11} \\ \M{X}_{21} \\ \M{X}_{12} \\ \M{X}_{22}
 \end{bmatrix}
 =
 \begin{bmatrix}
@@ -70,7 +76,7 @@ For this $\mathbf{A}$ $(6)$ is thus
 \end{bmatrix}
 ~
 
-## General $\mathbf{C}$
+## General $\M{C}$
 
 ~ Equation
 
@@ -84,7 +90,13 @@ C = kron(A, I) + kron(I, A)
 [INCLUDE=code/buildC.m]
 ```
 
-## Upper bound for `nnz(C)`
+## Upper bound for `nnz(C)` and is C always sparse?
+
+
+
+For a full $\M{A}$ $\M{C}$ is not sparse. $\M{C}$ consists of the addition of a matrix with a diagonal of $n$ blocks of $\M{A}$ and a matrix consisting of scaled identity matrix blocks. Thus its non-zero entries are $n^3 + n^3 - n^2 = 2n^3 - n^2$ which is dense.  
+
+
 
 ## [Eigen]{font-variant=small-caps} implementation of `buildC`
 
@@ -98,5 +110,16 @@ Both implementations gave the same matrix.
 
 ## `solveLyapunov`
 
+```cpp
+[INCLUDE=code/buildC.cpp:27-38]
+```
 
+## Verifying Correctness of `solveLyapunov`
 
+Both implementations gave the same matrix.
+
+# Partioned Matrix
+
+## Invertability of $\M{R}$
+
+Bei einer Dreiecksmatrix wie $\M{R}$ ist $\det{\M{R}}$ die Multiplikation der Diagonalelemente. 
