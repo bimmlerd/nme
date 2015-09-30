@@ -13,3 +13,6 @@ include_directories(${EIGEN3_INCLUDE_DIR})
 
 set(SOURCE_FILES buildC.cpp)
 add_executable(buildC ${SOURCE_FILES})
+
+set(SOURCE_FILES solvelse.cpp)
+add_executable(solvelse ${SOURCE_FILES})
