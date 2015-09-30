@@ -12,7 +12,6 @@ SparseMatrix<double> buildC(const MatrixXd &A) {
     SparseMatrix<double> C1(n2, n2);
     SparseMatrix<double> C2(n2, n2);
 
-    std::vector<Triplet<double>> triplets;
     MatrixXd Id = MatrixXd::Identity(n,n);
     SparseMatrix<double> I = Id.sparseView();
 

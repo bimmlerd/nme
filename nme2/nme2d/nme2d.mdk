@@ -122,4 +122,29 @@ Both implementations gave the same matrix.
 
 ## Invertability of $\M{R}$
 
-Bei einer Dreiecksmatrix wie $\M{R}$ ist $\det{\M{R}}$ die Multiplikation der Diagonalelemente. 
+Since $\M{R}$ is a upper triangular matrix, $\det{\M{R}}$ is the multiplication of its diagonal. Thus, if this multiplication doesn't result in $0$, $\M{R}$ is invertible.
+
+## Expressions for Subvectors $\M{z}, \xi$
+
+~ Equation
+\M{z} = \M{R}^{-1} (\M{b} + \xi \M{v})
+~
+
+~ Equation
+\xi = \beta + \frac{\M{u^{T}R^{-1}b}}{\M{u^TR^{-1}v}}
+~
+
+## Regularity of $\M{A}$
+
+## `solvelse`
+
+```cpp
+[INCLUDE=code/solvelse.cpp:1-23]
+```
+
+## Correctness
+
+It's not right at all, but I can't find the mistake. The implementation does what it is supposed to, but the subvectors are wrong.
+
+## Asymptotic Complexity
+
