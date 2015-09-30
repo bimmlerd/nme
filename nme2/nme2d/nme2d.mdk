@@ -38,7 +38,7 @@ And the second property:
 
 We have
 ~ Math
-\begin{bmatrix}2 & 1 \\ -1 & 3 \end{bmatrix} \mathbf{X} + \mathbf{X} \begin{bmatrix} 2 & 1 \\ -1 & 3 \end{bmatrix} = \mathbf{I}
+\begin{bmatrix}2 & 1 \\ -1 & 3 \end{bmatrix} \mathbf{X} + \mathbf{X} \begin{bmatrix} 2 & -1 \\ 1 & 3 \end{bmatrix} = \mathbf{I}
 ~
 
 This gives us the following equations:
@@ -47,7 +47,7 @@ This gives us the following equations:
 1 &= 2 \mathbf{X}_{11} + \mathbf{X}_{21} + 2 \mathbf{X}_{11} + \mathbf{X}_{11} = 4 \mathbf{X}_{11} + \mathbf{X}_{21} + \mathbf{X}_{12} \\
 0 &= - \mathbf{X}_{11} + 5 \mathbf{X}_{21} + \mathbf{X}_{22} \\
 0 &= - \mathbf{X}_{11} + 5 \mathbf{X}_{12} + \mathbf{X}_{22} \\
-1 &= - \mathbf{X}_{21} - \mathbf{X}_{12} + 6 \mathbf{X}_{21}
+1 &= - \mathbf{X}_{12} - \mathbf{X}_{21} + 6 \mathbf{X}_{22}
 \end{aligned}
 ~
 
@@ -87,4 +87,16 @@ C = kron(A, I) + kron(I, A)
 ## Upper bound for `nnz(C)`
 
 ## [Eigen]{font-variant=small-caps} implementation of `buildC`
+
+```cpp
+[INCLUDE=code/buildC.cpp:1-25]
+```
+
+## Verifying Correctness of `buildC`
+
+Both implementations gave the same matrix.
+
+## `solveLyapunov`
+
+
 
