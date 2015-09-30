@@ -111,7 +111,7 @@ Both implementations gave the same matrix.
 ## `solveLyapunov`
 
 ```cpp
-[INCLUDE=code/buildC.cpp:27-38]
+[INCLUDE=code/buildC.cpp:26-38]
 ```
 
 ## Verifying Correctness of `solveLyapunov`
