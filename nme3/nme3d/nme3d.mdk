@@ -1,0 +1,33 @@
+Title         : Problem Sheet 3
+Subtitle      : Numerical Methods for CSE
+Heading Base  : 2
+Author        : David Bimmler
+Package       : mathtools
+Logo          : false
+
+[TITLE]
+
+# Rank-one perturbations
+
+## [Eigen]{font-variant=small-caps} implementation of `rankoneinvit`  { @h1-h2="a" }
+
+```cpp
+[INCLUDE=code/rankoneinvit.cpp:1-27]
+```
+
+## Asymptotic complexity
+
+The asymptotic complexity of the loop body is $O(n^3)$, the solve dominates.
+
+## Efficient [Eigen]{font-variant=small-caps} implementation
+
+
+## Asymptotic complexity of efficient implementation
+
+## Runtime comparison
+
+# C++ Project: Triplet to CRS
+
+```cpp
+[INCLUDE=code/tripletToCRS.cpp]
+```
