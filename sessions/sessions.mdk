@@ -9,9 +9,11 @@ Package       : mathtools
 \newcommand{\M}[1]{\mathbf{#1}}
 \newcommand{\A}{\M{A}}
 \newcommand{\I}{\M{I}}
+\newcommand{\x}{\M{x}}
+\newcommand{\Ax}{\A\x}
 ~
 
-# First Session
+# Session
 
 ## Organisation
 
@@ -19,7 +21,7 @@ abohn@student.ethz.ch
 
 ## Much Blah about Householder reflections (see also email)
 
-# Second Session
+# Session
 
 ## Organisation
 
@@ -125,10 +127,116 @@ z\\
 \end{bmatrix} = 
 \begin{bmatrix}
 b \\
-\Beta
+\beta
 \end{bmatrix}$
 
 $\begin{bmatrix}
 \I & 0 \\
 0 & 1
 \end{bmatrix}$
+
+# Session
+
+## Pre
+
+### Rank one perturbation
+
+_Theorem_ (3.1.6.103)
+
+_LGS_ $\Ax = \M{b}$ $\A \in \mathbb{M}^{n\times n}$ regulär
+
+_Störung_ $A$ mit Tilde drüber: veränderung von $\A$ in einem einzelnen Eintrag/ einer einzelnen Zeile von A heissen Rang-1-Modifikationen
+
+_Konstruktion_
+
+$\tilde{A} := A + u*v^H$ ($u*v^H$ Matrix von Rang 1)
+
+_Idee_
+
+$\tilde{A}\tilde{x} = b$
+
+Schreib als
+
+~ Equation
+\begin{bmatrix}
+\A & u \\
+v^H & -1
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+\tilde{x} \\
+\tilde{\xi}
+\end{bmatrix}
+=
+\begin{bmatrix}
+b \\
+0
+\end{bmatrix}
+~
+
+~ Math
+\begin{bmatrix}
+\A \tilde{x} + u \tilde{\xi} \\
+v^H \tilde{x} - \tilde{\xi}
+\end{bmatrix}
+=
+\begin{bmatrix}
+b \\
+0
+\end{bmatrix}
+~
+
+~ Math
+\tilde{\xi} = v^{H}\tilde{x}
+~
+
+
+~ Math
+\tilde{A}\tilde{\xi} + u \times \tilde{\xi} = A\tilde{x} + uv^H\tilde{x} = (A + uv^{H}) \tilde{x} = b
+~
+
+------
+
+Was macht Code?
+
+d -> Vektor, tol -> Toleranz
+
+a) übersetzen
+
+```
+Matlab: lnew = min(abs(d))
+```
+```cpp
+C++: double lnew = d.cwiseAbs().minCoeff()
+```
+
+c) Ziel: optimale Komplexität
+
+Benutze SMW-Formel um modifiziertes LGS zu lösen ~1.6.113 im Skript
+
+### not a core problem
+
+### 3. C++ Kentnisse verbessern
+
+Unterpunkte _müssen_ nicht beachtet werden
+
+Aufgabe: Umwandlung von Triples (COO format) zu CRS (compact row storage)
+
+_Theorie_ Triplet List format Skript 1.7.6
+Triplets (row, col, value) siehe Serie 2
+
+_Eigenschaften_
+
+- Indizes können doppelt vorkommen -> Eintrag in Matrix ist Summe der einzelnen Values mit selben indizes
+- reihenfolge im vector egal
+- insgesamt gleiche anzahl werte von row, col, val
+
+_CRS Compact Row Storage_
+
+Es git 3 arrays:
+
+- val = Array mit allen werten ungleich 0
+- col_ind = zu jedem element aus val index der spalte 
+- row_ptr = welche werte von val zu welcher zeile (rowptr[n+1] = nnz(A)+1)
+
+
