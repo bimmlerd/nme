@@ -25,6 +25,9 @@ include_directories(${EIGEN3_INCLUDE_DIR})
 set(SRCS rankoneinvit.cpp)
 add_executable(rankoneinvit ${SRCS})
 
+set(SRCS fastrankoneinvit.cpp)
+add_executable(fastrankoneinvit ${SRCS})
+
 # make gramschmidt: problem 3
 set(SRCS tripletToCRS.cpp)
 add_executable(tripletToCRS ${SRCS}) 
