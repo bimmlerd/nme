@@ -38,5 +38,11 @@ int main() {
 
     solvelse(R, v, u, b, x);
     std::cout << x << std::endl;
+
+    MatrixXd A(4,4);
+    A << R, v, u.transpose(), 0;
+
+    std::cout << A.fullPivLu().solve(b) << std::endl;
+
     return 0;
 }
