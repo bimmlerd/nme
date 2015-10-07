@@ -99,8 +99,8 @@ public:
         Matrix<scalar, -1, -1> M = Matrix<scalar, -1, -1>::Zero(rows, cols);
         for (typename vector<ColValPair<scalar>>::size_type i = 1; i < rowPtr.size(); i++) {
             int count = rowPtr[i] - rowPtr[i-1];
-            if (count <= 0) {
-                cout << "ARGH, I think that's a whole row of zeros there?" << endl;
+            if (count == 0) {
+                continue; // row of zeros
             }
             for (int j = rowPtr[i-1]; j < rowPtr[i]; j++) {
                 ColValPair<scalar> cvp = pairs[j];
@@ -127,17 +127,19 @@ void tripletToCRS(const TripletMatrix<scalar> & T, CRSMatrix<scalar> & C) {
     });
     C = CRSMatrix<scalar>(T.getRows(), T.getCols());
     for (typename vector<const Triplet<scalar, size_t>>::iterator it = triplets.begin(); it != triplets.end(); ++it) {
-        ColValPair<scalar> pair = ColValPair<scalar>(it->col(), it->value());
-        cout << "pushing pair " << pair << " and incrementing " << C.rowPtr[it->row() + 1] << " at " << it->row()+1 << endl;
+        scalar val = it->value();
+        while((it+1) != triplets.end() && it->row() == (it+1)->row() && it->col() == (it+1)->col()) {
+            // this handles the case of multiple entries for one element
+            val += (it+1)->value();
+            ++it;
+        }
+        ColValPair<scalar> pair = ColValPair<scalar>(it->col(), val);
         C.pairs.push_back(pair);
         C.rowPtr[it->row() + 1] += 1;
     }
-    cout << "[" << C.rowPtr[0];
-    for (int i = 1; i < C.rowPtr.size(); i++) {
-        C.rowPtr[i] += C.rowPtr[i-1];
-        cout << " " << C.rowPtr[i];
+    for (unsigned long i = 1; i < C.rowPtr.size(); i++) {
+        C.rowPtr[i] += C.rowPtr[i-1]; // adjust rowptr
     }
-    cout << "]" << endl;
 
 }
 
@@ -161,35 +163,20 @@ std::ostream & operator<<(std::ostream & o, const CRSMatrix<double> & S) {
     return o << S.densify();
 }
 
-//! \brief overload of operator << for output of ColValPair (debug).
-//! this allows something like std::cout << S
-//! \param o standard output stream
-//! \param S matrix in ColValPair format
-//! \return a ostream o, s.t. you can write o << A << B;
-std::ostream & operator<<(std::ostream & o, const ColValPair<double> & S) {
-    return o << "(" << S.col() << ", " << S.val() << ")";
-}
-
 int main() {
     //// Correctness test
-    srand(13); // TODO this is pretttty hacky, but this gives me a seed which doesn't contain rows full of zeros.
     size_t nrows = 7, ncols = 5, ntriplets = 9;
 
-    MatrixXd R (nrows, ncols);
     TripletMatrix<double> T (nrows, ncols);
     CRSMatrix<double> C;
 
     for(auto i = 0u; i < ntriplets; ++i) {
-        size_t ii = rand() % nrows, jj = rand() % ncols;
-        double v = rand() % 1000;
-        R(ii, jj) = v;
-        T.insert(ii, jj, v);
+        T.insert(rand() % nrows, rand() % ncols, rand() % 1000);
     }
     
     cout << "***Test conversion with random matrices***" << endl;
     tripletToCRS(T, C);
     cout << "--> Frobenius norm of T - C: " << (T.densify()-C.densify()).norm() << endl;
-    cout << "R = " << std::endl << R << std::endl;
     cout << "T = " << std::endl << T << std::endl;
     cout << "C = " << std::endl << C << std::endl;
 }
