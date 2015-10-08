@@ -47,7 +47,8 @@ public:
 
     Matrix<scalar, -1, -1> densify() const {
         Matrix<scalar, -1, -1> M = Matrix<scalar, -1, -1>::Zero(rows, cols);
-        for (typename vector<const Triplet<scalar, size_t>>::iterator it = triplets.begin(); it != triplets.end(); ++it) {
+        for (typename vector<const Triplet<scalar, size_t>>::iterator it = triplets.begin();
+             it != triplets.end(); ++it) {
             M(it->row(), it->col()) += it->value();
         }
         return M;
@@ -126,7 +127,8 @@ void tripletToCRS(const TripletMatrix<scalar> & T, CRSMatrix<scalar> & C) {
         }
     });
     C = CRSMatrix<scalar>(T.getRows(), T.getCols());
-    for (typename vector<const Triplet<scalar, size_t>>::iterator it = triplets.begin(); it != triplets.end(); ++it) {
+    for (typename vector<const Triplet<scalar, size_t>>::iterator it = triplets.begin();
+         it != triplets.end(); ++it) {
         scalar val = it->value();
         while((it+1) != triplets.end() && it->row() == (it+1)->row() && it->col() == (it+1)->col()) {
             // this handles the case of multiple entries for one element
