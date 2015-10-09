@@ -26,7 +26,7 @@ The asymptotic complexity of the loop body is $O(n^3)$, the solve dominates.
 
 ## Runtime comparison
 
-# C++ Project: Triplet to CRS
+# C++ Project: Triplet to CRS { @h1=3 }
 
 ```cpp
 [INCLUDE=code/tripletToCRS.cpp]
