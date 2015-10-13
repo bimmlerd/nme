@@ -28,3 +28,17 @@ end
 # Convergent Newton Iteration
 
 # The order of convergence of an Iterative Scheme
+
+## Matlab Computation of Order of Convergence
+
+```
+[INCLUDE=code/steff_it.m]
+```
+
+```
+[INCLUDE=code/steff_step.m]
+```
+
+```
+[INCLUDE=code/nme4p3a.m]
+```
