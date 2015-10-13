@@ -1,0 +1,30 @@
+Title         : Problem Sheet 4
+Subtitle      : Numerical Methods for CSE
+Heading Base  : 2
+Author        : David Bimmler
+Package       : mathtools
+Logo          : false
+
+[TITLE]
+
+# Order of Convergence from Error Recursion
+
+## Guessing the Maximal Order of Convergence { @h1-h2 = "a" }
+
+After the following quick calcualations it seems to be $1.3660$.
+
+```
+e = [0.1 0.05];
+for n = 3:40
+e(n) = e(n-1)*sqrt(e(n-2));
+end
+for n = 2:39
+p(n) = (log(e(n+1))-log(e(n)))/(log(e(n))-log(e(n-1)));
+end
+```
+
+## Analytical Considertations
+
+# Convergent Newton Iteration
+
+# The order of convergence of an Iterative Scheme
