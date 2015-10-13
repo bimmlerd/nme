@@ -31,13 +31,19 @@ end
 
 ## Matlab Computation of Order of Convergence
 
-```
-[INCLUDE=code/steff_it.m]
-```
+First, we implement a single step of the method:
 
 ```
 [INCLUDE=code/steff_step.m]
 ```
+
+Then, we use this step for a general implementation of the method:
+
+```
+[INCLUDE=code/steff_it.m]
+```
+
+Finally, we use this to solve the exercise:
 
 ```
 [INCLUDE=code/nme4p3a.m]
