@@ -23,11 +23,7 @@ p(n) = (log(e(n+1))-log(e(n)))/(log(e(n))-log(e(n-1)));
 end
 ```
 
-## Analytical Considertations
-
-# Convergent Newton Iteration
-
-# The order of convergence of an Iterative Scheme
+# The order of convergence of an Iterative Scheme { @h1="3"}
 
 ## Matlab Computation of Order of Convergence
 
@@ -48,3 +44,15 @@ Finally, we use this to solve the exercise:
 ```
 [INCLUDE=code/nme4p3a.m]
 ```
+
+We arrive at the conclusion that $p \approx 2$.
+
+## Allowing for Larger Initial Guesses
+
+Using the hint, we use $\frac{1}{e^x}$ as our $h$ and arrive at a more convenient function $f$ with the same root:
+
+~Math
+f(x) = x - \frac{1}{e^x}
+~
+
+Using this $f$, much larger initial guesses are possible.
