@@ -240,3 +240,203 @@ Es git 3 arrays:
 - row_ptr = welche werte von val zu welcher zeile (rowptr[n+1] = nnz(A)+1)
 
 
+#  Session
+
+## Post Serie 3
+
+### Aufgabe 1
+
+lnew/lmin keine Bedeutung
+Wichtig: body der schleife
+
+M = diag(d) + ev*ev' entspricht Ã
+
+A: diagonal matrix
+
+Ausgang:
+M * x = ev
+
+x = M \\ ev
+
+ev = x
+
+lnew = ev' * M * ev
+
+Besser:
+
+Benutzer SMW-Formel
+
+A entspricht diag(d), u = v = b = ev
+Benutze Form von A
+-> Vektor multiplikation
+
+Implementation
+Inverse von 'diag(d)': VectorXd dinv = (1/d.array()).matrix()
+
+```
+while() {
+  lmin = lnew
+  VectorXd ev0 = ev
+  VectorXd Aib = dinv.cwiseProduct(ev); entspricht A^-1b = A^-1u
+  double temp = ev.transpose() * Aib; entspricht v^HA^-1b = v^HA^-1u
+  ev = Aib - temp / (1 + temp) * ev; entspricht x = A^-1b - \frac{(v^HA^-1b)}{1 + v^H A^-1u}u
+  ev.normalize();
+  lnew = ev.transpose() * d.cwiseProduct(ev) + pow(ev.transpose() * ev0, 2);
+}
+Herleitung
+  lnew = ev'Mev = ev^(diag(d) + ev0 *ev0)^) * ev
+  lnew = ev^diaf(d) * ev + ev^(ev0 * ev^')ev
+  
+  ev^(ev0 * ev^')ev = (ev'ev0)^2
+
+```
+
+### Sinh-Approx
+
+blah
+
+## Pre 4
+
+### Thema: Iterative Lösungsmethoden nicht lin GS
+
+Problemstellung: $F \subset R^n \to R^n$
+gesucht: $x^* \in R^n$ mit $F(x^*)=0$
+
+Vorgehen:
+
+- Startwert(e): $x^0$
+- Iterationsschritte $x^1, x^2, ..., x^{n-1}$
+- Abbruchkriterium $x^n \approx x^*$   
+
+Def: Konvergenzrate/-ordnung
+
+Eine Folge $x^k$ konvergiert mit Ordnung $p$ gegen $x^*$, wenn $\exists L \in R_{>0} || x^{k+1}- x^k|| \leq L|| x^{k+1}- x^k||^p$
+
+$L$: Konvergenzrate
+
+Bem:
+
+1. $L \in ]0,1[, p = 1$ -> lineare Konvergenz
+2. $L \in R_{>0}, p = 2$ -> quadratische Konvergenz
+
+#### Konvergenzrate numerisch bestimmen:
+
+- absoluten Fehler: $e^k = ||x^k - x^*||$
+
+$x^*$ ist im Allgemeinen nicht bekannt, also Code einmal laufen lassen -> $x^* = x^n$
+
+- Berechnen $p$: $p\approx \frac{\log{\epsilon^{k+1}} - \log{\epsilon^{k}}}{\log{\epsilon^{k}} - \log{\epsilon^{k-1}}}$
+
+##### Bsp
+
+Code liefert: $x^0, x^1, x^2, ..., x^n$
+Bestimme $\epsilon^{0}, \epsilon^{1}, \epsilon^{2},...,  \epsilon^{n-1}$
+
+Berechne: $\frac{\log{\epsilon^{4}} - \log{\epsilon^{3}}}{\log{\epsilon^{3}} - \log{\epsilon^{2}}}$ ... $\frac{\log{\epsilon^{n-1}} - \log{\epsilon^{n-2}}}{\log{\epsilon^{n-2}} - \log{\epsilon^{n-3}}}$
+
+-> mittelwert
+
+##### Bsp für it. Methoden
+
+1) Bisektionsverfahren
+
+  $x \cdot e^x - 1$
+  
+  1. Intervall $[a,b] mit \exists$ Nullstelle
+  2. Bestimme Mittelpunkt des Intervalls ($m = \frac{a+b}{2}$)
+  3. Prüfe
+  ```
+  if f(a) * f(m) < 0:
+    b = m;
+  else:
+    a = m;
+  ``` 
+  4. Abbruchkriterium:
+  
+    - $||x^k-x^{k-1}|| < tol$ (absoluter Fehler)
+    - $||x^k - x^{k-1}|| < tol \cdot ||x^{k-1}||$ (relativer Fehler)
+    
+  *Eigenschaften*
+  - 2 startwerte uaf NST
+  - konvergiert langsam, aber garantiert falls SW richtig gewählt 
+
+2) **Fixpunktiteration**
+
+  Def: $\phi$ ist eine *Kontraktion* auf $D \subset R^{n}$, falls $\exists L \in ]0,1[ ||\phi(x)-\phi(y)|| < L ||x-y||$ $\forall x,y \in D$
+  
+  1D: $D = [a,b]$ ud $\phi$ hat auf [a,b] Steigung, deren Betrag $<1$ ist.
+  
+  *Banachscher Fixpunksatz:*
+  Sei $\phi : D\subset R^n \to R^n$ eine Abbildung mit Bedingungen:
+  
+  1) $\phi$ bildet abgeschlossene Teilmenge $M \subset D$ auf sich selbst ab: $\phi(M) \subset M$
+  2) Auf $M$ ist $\phi$ eine Kontraktion
+  
+  Dann gilt:
+  
+  1) $\phi$ besitzt in $M$ *genau einen Fixpunkt*: $F(x^*) = x^*$
+  2) Für jeden Startwert $x^0 \in M$ konvergiert die Folge : $x^k = \phi(x^{k-1})$ gegen den Fixpunkt $x^*$
+  
+  
+  *Idee*: Mache Nullstellen-Problem zu Fixpunkt-Problem
+  
+  *Beispiel*:
+  $F(x) = xe^x - 1 = 0$
+  
+  gesucht ist jetz $\phi$ mit $\phi(x^*) = x^*$
+  
+  zB
+  
+  - $\phi_1(x) = xe^x -1 + x$ (addiere $x$)
+  - $\phi_2(x) = e^{-x}$ (denk dir $\overset{!}{=} x$)
+  - $\phi_3(x) = \frac{1 + x}{1 + e^x}$
+  
+  *Vorgehen*
+  
+  1. Startwert $x^0$
+  2. Iterationsschritt: $x^{k+1} = \phi(x^k)$
+  2. Abbruch
+  
+  *Eigenschaften* konvergiert unterschiedlich bzw gar nicht für verschiedene $\phi$.
+  
+3) **Newton-Verfahren**
+
+  Tangente bestimmen, Schnittpunkt mit Nullstelle bestimmen -> Tangente an Schnittpunkt besitmmen etc
+  
+  Benötigt:
+  - Funktion muss 2 mal differenzierbar sein: $f\in C^2(R)$
+  - $f'$ mit $f'(x^*) \neq 0$
+  
+  Vorgehen
+  - SW $x^0$
+  - Iteration: $x^{k+1} = x^{k} - \frac{f(x^k)}{f'(x^k)}$
+  - Abbruch
+  
+  Eigenschaften:
+  - schnelle Konvergenz (in der Regel quadratisch)
+  - kann divergieren (zb arctan ausser in kleinem bereich um $(0,0)$)
+  - $f'$ wird benötigt
+  
+4) **Sekantenverfahren**
+
+  Idee: Statt Ableitung Sekante berechnen
+  
+  Vorgehen:
+  
+  - Zwei Startwerte $x^0, x^1$ (NST muss nicht drin liegen)
+  - Iteration: $x^{k+1} = x^k - f(x^k) \cdot \frac{x^k - x^{k-1}}{f(x^k) - f(x^{k-1})}$
+  - Abbruch
+  
+5) **Inverse Interpolation**
+
+  Geg: $F : I\subset R \to R$  monoton mit $F(x^*) = 0 \leftrightarrow x^* = F^1(0)$
+  
+  Idee: Interpolation von $F^1$ als Polynom $p(a)$ von Grad $m-1$ NST von $F$ geg durch $p(0)$
+  
+  Bsp: $m = 3 \implies $ Parabel
+  
+  3 Startwerte $x^1, x^2, x^3$
+  
+  Interpoliert Polynom durch $(F(x^0),x^0), (F(x^1),x^1), (F(x^2),x^2)$ benutze `polyfit`
+  
+  Iteration: $x^3 = p(0)$ $\to$ drei neue Werte $x^0, x^1, x^2$ usw
