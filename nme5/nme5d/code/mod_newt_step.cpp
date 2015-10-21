@@ -39,14 +39,14 @@ void mod_newt_ord() {
         mod_newt_step(x, x_next, f, df);
 
         if (abs(x - x_next) < tol || abs(x - x_next) < abs(x_next) * tol) {
-            std::cout << "Abort condition reached" << std::endl;
+            cout << "Abort condition reached" << endl;
             break;
         }
     }
 
-    std::cout << "x_next: " << x_next << std::endl;
-    for (std::vector<double>::iterator it = ps.begin(); it != ps.end(); ++it) {
-        std::cout << "p: " << *it << std::endl;
+    cout << "x_next: " << x_next << endl;
+    for (vector<double>::iterator it = ps.begin(); it != ps.end(); ++it) {
+        cout << "p: " << *it << endl;
     }
 
 }
