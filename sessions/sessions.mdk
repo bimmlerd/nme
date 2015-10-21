@@ -1,5 +1,6 @@
 Title         : Numerik Exercise Sessions
 Heading Base  : 2
+Heading depth : 4
 Logo          : false
 Package       : mathtools
 
@@ -11,6 +12,7 @@ Package       : mathtools
 \newcommand{\I}{\M{I}}
 \newcommand{\x}{\M{x}}
 \newcommand{\Ax}{\A\x}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
 ~
 
 # Session
@@ -440,3 +442,46 @@ Berechne: $\frac{\log{\epsilon^{4}} - \log{\epsilon^{3}}}{\log{\epsilon^{3}} - \
   Interpoliert Polynom durch $(F(x^0),x^0), (F(x^1),x^1), (F(x^2),x^2)$ benutze `polyfit`
   
   Iteration: $x^3 = p(0)$ $\to$ drei neue Werte $x^0, x^1, x^2$ usw
+
+# Session
+
+## Midterm Infos { @h1-h2 = 0}
+
+Alles einschliesslich Kapitel, ohne Serie 5.
+
+Modus: Multiple Choice
+
+Code: nur lesen/verstehen, nicht schreiben
+
+probably mostly Verständnisfragen
+
+## Post 4
+
+### Order of Convergence from Error recursion
+
+#### Maximal Order of Convergence { @h1-h2-h3-h4 = "a"}
+
+hat gestimmt
+
+`diff` would've been useful: `diff(le(2:end)) / diff(le(1:end-1))` for `le = log(e)`
+
+#### Analytical Considerations
+
+*Def*: $\norm{e^{n}} \leq C \cdot \norm{e^{n-1}}^p$
+
+*Annahme* worst case: "="
+
+=>
+~Math
+\begin{aligned}
+\norm{e^{n-1}} &= C \cdot \norm{e^{n}}^p = C \cdot \norm{C \cdot \norm{e^{n-1}}^p}^p \\
+&= C^{p+1} \cdot \norm{e^{n-1}}^{p^2}
+\end{aligned}
+~
+
+-----
+Siehe handwritten notes
+
+-----
+
+Newton Verfahren Implementation
