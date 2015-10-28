@@ -5,13 +5,62 @@ Author        : David Bimmler
 Package       : mathtools
 Logo          : false
 
+~ MathDefs
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbf{F}}
+~
+
+
 [TITLE]
 
 # Modified Newton Method
 
-## Consistence of Iteration { @h1-h2 = "a" }
+## Consistency of Iteration { @h1-h2 = "a" }
 
+In order to prove consistency of the given iteration function it suffices to prove $x^{(0)} = x^{(k)}$ for $k \in \N$. 
 
+~ Proof
+We proceed by induction. The following facts are given:
+
+~~ Equation
+\F(x^{(0)}) = 0 \text{ and } D\F(x^{(0)})^{-1} \text{ regular}
+~~
+
+The induction hypothesis is as follows:
+~~ Math
+P(n) \equiv x^{(0)} = x^{(n)}
+~~
+
+Trivially, the base case $n = 0$ holds. We finish the proof by showing that $P(n+1)$ holds, given $P(n)$ for $n \in \N$.
+
+~~ Math
+x^{(n+1)} = y^{(n)} - D\F(x^{(n)})^{-1}\F(y^{(n)}) = x^{(0)} - D\F(x^{(0)})^{-1}\F(x^{(0)}) \overset{\text{(1)}}= x^{(0)}
+~~
+
+since 
+
+~~ Math
+\begin{aligned}
+y^{(n)} &= x^{(n)} + D\F(x^{(n)})^{-1}\F(x^{(n)}) \\
+&\overset{\mathclap{\strut\text{I.H.}}}= x^{(0)} + D\F(x^{(0)})^{-1}\F(x^{(0)}) \\
+&\overset{\mathclap{\strut\text{(1)}}}= x^{(0)}
+\end{aligned}
+~~
+~
+
+## [Eigen]{font-variant=small-caps} implementation of `mod_newt_step`
+
+```cpp
+[INCLUDE=code/mod_newt_step.cpp:1-11]
+```
+
+## [Eigen]{font-variant=small-caps} implementation of `mod_newt_ord`
+
+Not sure whether the order of convergence calculation works...
+
+```cpp
+[INCLUDE=code/mod_newt_step.cpp:13-52]
+```
 
 # Solving a Quasi-Linear System
 
