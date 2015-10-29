@@ -1,13 +1,12 @@
 #include <iostream>
 #include <Eigen/Dense>
-#include <vector>
 
 #include "timer.h"
 
 using namespace std;
 using namespace Eigen;
 
-/*template<typename CoeffVec>
+template<typename CoeffVec>
 pair<double, double> evaldp(const CoeffVec &c, double x) {
     pair<double, double> res = pair<double, double>();
     int degree = c.size() - 1;
@@ -20,24 +19,8 @@ pair<double, double> evaldp(const CoeffVec &c, double x) {
     res.first = c(degree) + b * x;
     res.second = b_prime;
     return res;
-};*/
+};
 
-template<typename CoeffVec>
-std::pair<double, double> evaldp(const CoeffVec &c, double x) {
-    // runs in O(n)
-    int n = c.rows();
-    std::pair<double, double> result(0.0, 0.0);
-    double p = c(0);
-    double pd = c(0) * (n - 1);
-    for (int i = 1; i < (n - 1); i++) {
-        p = x * p + c(i);
-        pd = x * pd + c(i) * (n - (i + 1));
-    }
-    p = x * p + c(n - 1);
-    result.first = p;
-    result.second = pd;
-    return result;
-}
 
 template<typename CoeffVec>
 pair<double, double> evaldp_naive(const CoeffVec &c, double x) {
