@@ -1,18 +1,56 @@
-Title         : Problem Sheet 5
+Title         : Problem Sheet 6
 Subtitle      : Numerical Methods for CSE
 Heading Base  : 2
 Author        : David Bimmler
 Package       : mathtools
 Logo          : false
 
+~ MathDefs
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbf{F}}
+~
+
+
 [TITLE]
 
-# Modified Newton Method
+# Evaluating the Derivatives of Interpolating Polynomials
 
-## Consistence of Iteration { @h1-h2 = "a" }
+## Efficient `dipoleval` { @h1-h2 = "b" }
+
+Deriving the recursion formula of the Aitken-Neville scheme gives the following:
+
+~ Math
+p'_{k,l}(x) = p'_{k+1,l}(x) + \frac{p_{k+1,l}(x) - p_{k, l-1}(x) + (x-t_l)(p'_{k+1,l}(x) - p'_{k,l-1}(x))}{t_l - t_k}
+~
+
+Using this formula leads to the following code:
+
+```
+[INCLUDE=code/dipoleval.m]
+```
+
+## Naive `dipoleval_alt`
 
 
 
-# Solving a Quasi-Linear System
 
-## Frozen Argument Technique
+# Evaluating the Derivatives of Interpolating Polynomials { @h1 = "3" }
+
+## Efficient `evaldp` using Horner Scheme
+
+```cpp
+[INCLUDE=code/evaldp.cpp:7-20]
+```
+
+## Naive `evaldp` 
+
+```cpp
+[INCLUDE=code/evaldp.cpp:22-42]
+```
+
+## Asymptotic Complexities
+
+The asymptotic complexity of the efficient `evaldp` implementation is $\mathcal{O}(n)$, just like the naive implementation. 
+
+## Validity Check 
+
