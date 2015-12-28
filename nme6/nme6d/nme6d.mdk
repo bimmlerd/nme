@@ -4,6 +4,7 @@ Heading Base  : 2
 Author        : David Bimmler
 Package       : mathtools
 Logo          : false
+Document Class: [a4paper]article
 
 ~ MathDefs
 \newcommand{\N}{\mathbb{N}}
@@ -31,7 +32,9 @@ Using this formula leads to the following code:
 
 ## Naive `dipoleval_alt`
 
-
+```
+[INCLUDE=code/dipoleval_alt.m]
+```
 
 
 # Evaluating the Derivatives of Interpolating Polynomials { @h1 = "3" }
@@ -39,18 +42,21 @@ Using this formula leads to the following code:
 ## Efficient `evaldp` using Horner Scheme
 
 ```cpp
-[INCLUDE=code/evaldp.cpp:7-20]
+[INCLUDE=code/evaldp.cpp:9-22]
 ```
 
 ## Naive `evaldp` 
 
 ```cpp
-[INCLUDE=code/evaldp.cpp:22-42]
+[INCLUDE=code/evaldp.cpp:25-45]
 ```
 
 ## Asymptotic Complexities
 
-The asymptotic complexity of the efficient `evaldp` implementation is $\mathcal{O}(n)$, just like the naive implementation. 
+The asymptotic complexity of the efficient `evaldp` implementation is $\mathcal{O}(n)$, just like the naive implementation. If we consider the number of basic operations, however, we see that the efficient version is much less costly to compute. The efficient version has $3n$ multiplications and $2n$ additions, whereas the naive version more than $n^2$ multiplications if `pow(2,i)` is implemented using $i$ multiplications. 
 
 ## Validity Check 
 
+```cpp
+[INCLUDE=code/evaldp.cpp:47-80]
+```

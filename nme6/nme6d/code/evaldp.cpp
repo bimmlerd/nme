@@ -70,8 +70,10 @@ int main() {
         }
 
         cout << "Degree " << degree << endl;
-        cout << "Time eff:\t" << tm_eff.avg().count() / 1000 << "ns" << endl;
-        cout << "Time naive:\t" << tm_naive.avg().count() / 1000 << "ns" << endl << endl;
+        cout << "Time eff:\t" << tm_eff.avg().count() / 1000
+            << "ns" << endl;
+        cout << "Time naive:\t" << tm_naive.avg().count() / 1000
+            << "ns" << endl << endl;
     }
 
     return 0;

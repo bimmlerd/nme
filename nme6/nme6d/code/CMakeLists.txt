@@ -25,4 +25,5 @@ include_directories(${EIGEN3_INCLUDE_DIR})
 set(SRCS evaldp.cpp)
 add_executable(evaldp ${SRCS})
 
-
+set(SRCS LinearInterpolant.cpp)
+add_executable(linear ${SRCS})
