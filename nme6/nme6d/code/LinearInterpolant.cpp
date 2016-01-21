@@ -22,7 +22,7 @@ public:
 
 	double operator() (double x) {
 
-		auto Compare = [] (const ip_pair & p, double x) -> bool { return p.first < x; };
+		auto Compare = [] (const ip_pair & p, double d) -> bool { return p.first < d; };
 
 		auto it = std::lower_bound(data_.begin(), data_.end(), x, Compare);
 
@@ -41,5 +41,5 @@ int main() {
 	LinearInterpolant I = LinearInterpolant({{1, 2}, {2, 3}, {4, 4}, {-1, -1}});
 
 	std::cout << I(-2) << " " << I(-1) << " " << I(1) << " " << I(2) << " " << I(4) << " " << I(5) << std::endl;
-    std::cout << I(0.5) << " " << I(1) << " " << I(1.5) << " " << I(2.1) << " " << I(3) << " " << I(3.1) << " " << I(4) << std::endl;
+    std::cout << I(0.5) << " " << I(1) << " " << I(1.5) << " " << I(2.1) << " " << I(3) << " " << I(3.1) << " " << I(5) << std::endl;
 }
